@@ -1,0 +1,13 @@
+.result{
+    background-color: #1E1940;
+    border-color: #f2b3e1;
+}
+
+.rank{
+    background-color: white;
+}
+
+.boton-regresar, .boton-home, .number{
+    background-color: #660273;
+}
+
