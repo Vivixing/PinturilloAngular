@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+    background-color: #6241D9;
+    background-image: url(../src/app/media/efecto-rayon.png);
+}
