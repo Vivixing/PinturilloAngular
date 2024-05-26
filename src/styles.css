@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 *{
+   
+}
+body{
     background-color: #6241D9;
-    background-image: url(../src/app/media/efecto-rayon.png);
+    background-image: url(../src/assets/media/efecto-rayon.png);
 }
