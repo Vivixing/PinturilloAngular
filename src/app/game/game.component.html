@@ -2,46 +2,47 @@
 
     <div class="flex flex-col flex-grow  max-h-[720px] bg-white shadow-xl rounded overflow-hidden">
         <h1 class="text-center font-bold text-[#660273] text-[30px] my-2">Ranking</h1>
-        <table class="mx-10 my-2">
-            <tr>
-                <td>
+        <div class="mx-10 my-2">
+            <div class="flex items-center">
+                <div>
                     <p class="font-bold text-[#660273]">1</p>
-                </td>
-                <td class="flex items-center">
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic1"></div>
-                    <p class="ml-2">Laurens</p>
-                </td>
-                <td>
+                </div>
+                <div class="flex items-center ml-2">
+                    <div class="h-10 w-10 rounded-full profilePic1"></div>
+                    <p class="ml-2">Laurens </p>
+                </div>
+                <div>
                     <p class="font-bold">50</p>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
+                </div>
+            </div>
+        
+            <div class="flex items-center mt-2">
+                <div>
                     <p class="font-bold text-[#660273]">2</p>
-                </td>
-                <td class="flex items-center">
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic3"></div>
+                </div>
+                <div class="flex items-center ml-2">
+                    <div class="h-10 w-10 rounded-full profilePic3"></div>
                     <p class="ml-2">Diana</p>
-                </td>
-                <td>
+                </div>
+                <div>
                     <p class="font-bold">40</p>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
+                </div>
+            </div>
+        
+            <div class="flex items-center mt-2">
+                <div>
                     <p class="font-bold text-[#660273]">3</p>
-                </td>
-                <td class="flex items-center">
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
+                </div>
+                <div class="flex items-center ml-2">
+                    <div class="h-10 w-10 rounded-full profilePic2"></div>
                     <p class="ml-2">Vanessa</p>
-                </td>
-                <td>
+                </div>
+                <div>
                     <p class="font-bold">30</p>
-                </td>
-            </tr>
-        </table>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
     <div class="game max-w-600">
@@ -64,7 +65,7 @@
         </div>
         <div class="flex flex-grow bg-white shadow-xl overflow-hidden space-x-2">
             <button id="clear" class="clear rounded text-white p-2 h-10 self-center ml-2" (click)="clearCanvas">Clear</button>
-            <input id="colors" class="w-20 h-20" name='stroke' type="color" onchange="changeColor(this.value)">
+            <input id="colors" class="w-20 h-20" name='stroke' type="color" (change)="changeCustomColor($event)">
             <div class="flex flex-wrap justify-center items-center max-w-md overflow-hidden ">
                 <button (click)="changeColor('#000000')" class="bg-black w-10 h-10"></button>
                 <button (click)="changeColor('#4B5563')" class="bg-gray-600 w-10 h-10"></button>
@@ -194,6 +195,6 @@
                     placeholder="Type your message…">
             </div>
         </div>
-        <!-- Component End  -->
+
     </div>
 </div>
