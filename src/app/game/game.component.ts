@@ -21,7 +21,58 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
     this.socket.$subject.subscribe((message) => {
-      console.log('Message received:', message);
+      try {
+        message = JSON.parse(message);
+        if (message && message.type != null) {
+          if (message.type === 'TURN') {
+            console.log('Turno Jugador:', message.data);
+          }
+          else if (message.type === 'ANNOUNCEMENT') {
+            console.log('Aviso:', message.data);
+          }
+          else if (message.type === 'MESSAGE') {
+            console.log(message.data);
+          }
+          else if (message.type === 'WORD') {
+            console.log('Palabra a Dibujar:', message.data);
+          }
+
+          else if (message.type === 'GUESSWORD') {
+            console.log(message.data);
+          }
+
+          else if (message.type === 'USER_TURN') {
+            console.log('Jugador Dibujando:', message.data);
+          }
+
+          else if (message.type === 'TIME') {
+            console.log('Tiempo Restante:', message.data);
+          }
+
+          else if (message.type === 'USER_END_TURN') {
+            console.log('El turno de', message.data , 'ha terminado');
+          }
+
+          else if (message.type === 'END_GAME') {
+            console.log(message.data);
+          }
+
+          else if (message.type === 'RESULTS') {
+            console.log(message.data);
+          }
+
+          else if (message.type === 'POINTS') {
+              console.log('Puntos:', message.data);
+          }
+          else {
+            console.log('Message received but type is not recognized:', message);
+          }
+        } else {
+          console.log('Message received but type is null or message is null:', message);
+        }
+      } catch (error) {
+        console.error('Error parsing message:', error, message);
+      }
     });
   }
 
@@ -37,7 +88,6 @@ export class GameComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.isBrowser) {
       this.setupCanvas();
-      this.startCountdown();
     }
   }
 
@@ -138,7 +188,6 @@ getPosition(e: MouseEvent, canvas: HTMLCanvasElement): { x: number, y: number } 
 changeColor(selectedColor: string): void {
   if (selectedColor) {
     this.color = selectedColor;
-    console.log("Color seleccionado:", this.color);
   }
 }
 
@@ -146,7 +195,6 @@ changeCustomColor(event: Event): void {
   const target = event.target as HTMLInputElement;
   if (target && target.value) {
     this.color = target.value;
-    console.log("Color seleccionado:", this.color);
   }
 }
 
