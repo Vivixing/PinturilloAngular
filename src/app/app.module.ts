@@ -7,19 +7,21 @@ import { IndexComponent } from './index/index.component';
 import { ResultadoComponent } from './resultado/resultado.component';
 import { GameComponent } from './game/game.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
     ResultadoComponent,
-    GameComponent
+    GameComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
   ],
   bootstrap: [AppComponent]
 })
