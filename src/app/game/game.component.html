@@ -1,0 +1,178 @@
+<div class="flex flex-wrap justify-center items-center space-x-20 space-y-10 my-auto mx-24">
+
+    <div class="flex flex-col flex-grow  max-h-[720px] bg-white shadow-xl rounded overflow-hidden">
+      <h1 class="text-center font-bold text-[#660273] text-[30px] my-2">Ranking</h1>
+      <table class="mx-10 my-2">
+        <tr>
+          <td>
+            <p class="font-bold text-[#660273]">1</p>
+          </td>
+          <td class="flex items-center">
+            <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic1"></div>
+            <p class="ml-2">Laurens</p>
+        </td>
+          <td><p class="font-bold">50</p></td>
+        </tr>
+
+        <tr>
+          <td>
+            <p class="font-bold text-[#660273]">2</p>
+          </td>
+          <td class="flex items-center">
+            <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic3"></div>
+            <p class="ml-2">Diana</p>
+        </td>
+          <td><p class="font-bold">40</p></td>
+        </tr>
+
+        <tr>
+          <td><p class="font-bold text-[#660273]">3</p></td>
+          <td class="flex items-center">
+            <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
+            <p class="ml-2">Vanessa</p>
+        </td>
+          <td><p class="font-bold">30</p></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="game max-w-600">
+      <div class="info flex justify-around items-center h-[50px]">
+        <div class="clock w-20 h-20 rounded-full text-center flex items-center justify-center">
+      <h1 id="time">99</h1>
+    </div>
+        <div>
+          <p class="text-white">Room #616</p>
+        </div>
+        <div class="word text-white text-center">
+          <p class="font-bold text-[30px]">_ _ _ _</p>
+        </div>
+        <div>
+          <p class="text-white">Round 1/3</p>
+        </div>
+      </div>
+      <div>
+      <canvas id="gameCanvas" class="bg-white" width="700" height="600"></canvas>
+        </div>
+        <div class="flex flex-grow bg-white shadow-xl overflow-hidden space-x-2">
+          <button id="clear" class="clear rounded text-white p-2 h-10 self-center ml-2">Clear</button>
+          <input id="colors" class="w-20 h-20" name='stroke' type="color" onchange="changeColor(this.value)">
+          <div class="flex flex-wrap justify-center items-center max-w-md overflow-hidden ">
+            <button  onclick="changeColor('#000000')" class="bg-black w-10 h-10"></button>
+            <button onclick="changeColor('#4B5563')" class="bg-gray-600 w-10 h-10"></button>
+            <button onclick="changeColor('#991B1B')" class="bg-red-800 w-10 h-10"></button>
+            <button onclick="changeColor('#DC1C26')" class="bg-red-600 w-10 h-10"></button>
+            <button onclick="changeColor('#92400E')" class="bg-amber-800 w-10 h-10"></button>
+            <button onclick="changeColor('#EA580C')" class="bg-orange-600 w-10 h-10"></button>
+            <button onclick="changeColor('#FACC15')" class="bg-yellow-400 w-10 h-10"></button>
+            <button onclick="changeColor('#16A318')" class="bg-green-600 w-10 h-10"></button>
+            <button onclick="changeColor('#2563EB')" class="bg-blue-600 w-10 h-10"></button>
+            <button onclick="changeColor('#1E3A8A')" class="bg-blue-900 w-10 h-10"></button>
+            <button onclick="changeColor('#3730A3')" class="bg-indigo-800 w-10 h-10"></button>
+            <button onclick="changeColor('#4F46E5')" class="bg-indigo-600 w-10 h-10"></button>
+            <button onclick="changeColor('#ffffff')" class="bg-white w-10 h-10 border border-black"></button>
+            <button onclick="changeColor('#9CA3AF')" class="bg-gray-400 w-10 h-10"></button>
+            <button onclick="changeColor('#F9A8D4')" class="bg-pink-300 w-10 h-10"></button>
+            <button onclick="changeColor('#EC4899')" class="bg-pink-500 w-10 h-10"></button>
+            <button onclick="changeColor('#CA8A04')" class="bg-yellow-600 w-10 h-10"></button>
+            <button onclick="changeColor('#FDE047')" class="bg-yellow-300 w-10 h-10"></button>
+            <button onclick="changeColor('#4ADE80')" class="bg-green-400 w-10 h-10"></button>
+            <button onclick="changeColor('#BBF7D0')" class="bg-green-200 w-10 h-10"></button>
+            <button onclick="changeColor('#93C5FD')" class="bg-blue-300 w-10 h-10"></button>
+            <button onclick="changeColor('#818CF8')" class="bg-indigo-400 w-10 h-10"></button>
+          </div>
+          <div class="width flex flex-wrap flex-col space-y-[4px]">
+            <button onclick="changeWidth(3)"><img class="h-[10px] w-[80px]" src="media/thinLine.jpg"></button>
+            <button onclick="changeWidth(8)"><img class="h-[10px] w-[80px]"src="media/line2.png"></button>
+            <button onclick="changeWidth(10)"><img class="h-[10px] w-[80px]"src="media/mediumLine.png"></button>
+            <button onclick="changeWidth(20)"><img class="h-[10px] w-[80px]"src="media/line3.png"></button>
+            <button onclick="changeWidth(30)"><img class="h-[10px] w-[80px]"src="media/line4.png"></button>
+            <button onclick="changeWidth(40)"><img class="h-[10px] w-[80px]"src="media/line5.png"></button>
+
+          </div>
+        </div>
+    </div>
+    <div class="chat bg-white">
+	<div class="flex flex-col flex-grow w-full max-w-xl max-h-[720px] bg-white shadow-xl rounded-lg overflow-hidden">
+		<div class="flex flex-col flex-grow p-4 overflow-auto">
+			<div class="flex w-full mt-2 space-x-3 max-w-xs">
+				<div class="flex-shrink-0 h-10 w-10 rounded-full profilePic1"></div>
+				<div>
+					<div class="bg-[#F2B3E1] p-3 rounded-r-lg rounded-bl-lg">
+						<p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				</div>
+			</div>
+			<div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+				<div>
+					<div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
+						<p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+					</div>
+				</div>
+				<div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
+			</div>
+			<div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+				<div>
+					<div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
+						<p class="text-sm">Lorem ipsum dolor sit amet.</p>
+					</div>
+				</div>
+				<div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
+			</div>
+			<div class="flex w-full mt-2 space-x-3 max-w-xs">
+				<div class="flex-shrink-0 h-10 w-10 rounded-full profilePic3"></div>
+				<div>
+					<div class="bg-[#F2B3E1] p-3 rounded-r-lg rounded-bl-lg">
+						<p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+					</div>
+				</div>
+			</div>
+			<div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+				<div>
+					<div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
+						<p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+					</div>
+				</div>
+				<div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
+			</div>
+			<div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+				<div>
+					<div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
+						<p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+					</div>
+				</div>
+				<div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
+			</div>
+			<div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+				<div>
+					<div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
+						<p class="text-sm">Lorem ipsum dolor sit amet.</p>
+					</div>
+				</div>
+				<div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
+			</div>
+			<div class="flex w-full mt-2 space-x-3 max-w-xs">
+				<div class="flex-shrink-0 h-10 w-10 rounded-full profilePic1"></div>
+				<div>
+					<div class="bg-[#F2B3E1] p-3 rounded-r-lg rounded-bl-lg">
+						<p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+					</div>
+				</div>
+			</div>
+			<div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+				<div>
+					<div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
+						<p class="text-sm">Lorem ipsum dolor sit.</p>
+					</div>
+				</div>
+				<div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
+			</div>
+		</div>
+		
+		<div class="bg-[#F2B3E1] p-4">
+			<input class="flex items-center h-10 w-full rounded px-3 text-sm" type="text" placeholder="Type your message…">
+		</div>
+	</div>
+	<!-- Component End  -->
+    </div>
+  </div>
