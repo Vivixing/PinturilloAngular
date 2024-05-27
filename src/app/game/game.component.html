@@ -64,7 +64,7 @@
             <canvas #canvasElement class="bg-white" width="700" height="600"></canvas>
         </div>
         <div class="flex flex-grow bg-white shadow-xl overflow-hidden space-x-2">
-            <button id="clear" class="clear rounded text-white p-2 h-10 self-center ml-2" (click)="clearCanvas">Clear</button>
+            <button id="clear" type="button" class="clear rounded text-white p-2 h-10 self-center ml-2" (click)="clearCanvas()">Clear</button>
             <input id="colors" class="w-20 h-20" name='stroke' type="color" (change)="changeCustomColor($event)">
             <div class="flex flex-wrap justify-center items-center max-w-md overflow-hidden ">
                 <button (click)="changeColor('#000000')" class="bg-black w-10 h-10"></button>

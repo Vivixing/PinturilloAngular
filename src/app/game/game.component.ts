@@ -1,5 +1,6 @@
 import { Component, ElementRef, Inject, OnInit, AfterViewInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { SocketService } from '../services/socket.service';
 
 @Component({
   selector: 'app-game',
@@ -16,21 +17,27 @@ export class GameComponent implements OnInit, AfterViewInit {
   drawing: boolean = false;
   coords = { x: 0, y: 0 };
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    console.log("Platform ID:", platformId);
+  constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+
+    this.socket.$subject.subscribe((message) => {
+      console.log('Message received:', message);
+    });
   }
 
   ngOnInit(): void {
     console.log("Is browser:", this.isBrowser);
     if (this.isBrowser) {
-      this.startCountdown();
+      this.socket.connect(1, "username");
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d', { willReadFrequently: true });
     }
   }
 
   ngAfterViewInit(): void {
     if (this.isBrowser) {
       this.setupCanvas();
+      this.startCountdown();
     }
   }
 
