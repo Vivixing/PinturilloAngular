@@ -19,6 +19,9 @@
     </div>
 
     <div class="game">
+        <div [ngClass]="{'hidden': gameStarted, 'visible': !gameStarted}" class="flex flex-wrap justify-center items-center my-3">
+        <button type="button" class="clear rounded text-white font-extrabold p-2 h-16" (click)="startGame()">Start Game!</button>
+        </div>
         <div class="info flex justify-around items-center h-[50px]">
             <div class="clock w-20 h-20 rounded-full text-center flex items-center justify-center">
                 <h1 id="time">{{ timeLeft }}</h1>
@@ -81,10 +84,10 @@
         </div>
     </div>
     <div class="chat bg-white">
-        <div
-            class="flex flex-col flex-grow w-full max-w-xl max-h-[720px] bg-white shadow-xl rounded-lg overflow-hidden">
+        <div class="flex flex-col flex-grow w-full max-w-xl max-h-[720px] bg-white shadow-xl rounded-lg overflow-hidden">
             <div class="flex flex-col flex-grow p-4 overflow-auto">
-                <div class="flex w-full mt-2 space-x-3 max-w-xs" *ngFor="let message of messages">
+                <div *ngFor="let message of messages">
+                <div *ngIf="message.user !== 'me'" class="flex w-full mt-2 space-x-3 max-w-xs">
                     <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic1"></div>
                     <div>
                         <div class="bg-[#F2B3E1] p-3 rounded-r-lg rounded-bl-lg">
@@ -92,20 +95,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-                    <div>
-                        <div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
-                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-                            </p>
+                    <div *ngIf="message.user === 'me'" class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+                        <div>
+                            <div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
+                                <p class="text-sm">{{message.message}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
+                        <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
                 </div>
             </div>
+            </div>
 
-            <div class="bg-[#F2B3E1] p-4">
-                <input class="flex items-center h-10 w-full rounded px-3 text-sm" type="text"
+            <div class="flex flex-wrap bg-[#F2B3E1] p-4 gap-8">
+                <input id="message" class="flex items-center h-10 rounded px-3 w-[250px] text-sm" type="text"
                     placeholder="Type your message…">
+                <button type="button" class="clear rounded text-white p-2 h-10 self-center ml-2" (click)="sendMessage()">Send</button>
             </div>
         </div>
 

@@ -20,6 +20,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   word: string = '';
   players: {username: string, puntos: number}[] = [];
   messages: {user:string, message:string}[] = [];
+  gameStarted: boolean = false;
 
   constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -32,6 +33,7 @@ export class GameComponent implements OnInit, AfterViewInit {
             console.log('Turno Jugador:', message.data);
           }
           else if (message.type === 'ANNOUNCEMENT') {
+            alert(message.data);
             console.log('Aviso:', message.data);
           }
           else if (message.type === 'MESSAGE') {
@@ -45,10 +47,12 @@ export class GameComponent implements OnInit, AfterViewInit {
           }
 
           else if (message.type === 'GUESSWORD') {
+            alert(message.data);
             console.log(message.data);
           }
 
           else if (message.type === 'USER_TURN') {
+            alert(message.data + ' esta dibujando');
             console.log('Jugador Dibujando:', message.data);
           }
 
@@ -58,10 +62,12 @@ export class GameComponent implements OnInit, AfterViewInit {
           }
 
           else if (message.type === 'USER_END_TURN') {
+            alert('El turno de ' + message.data + ' ha terminado')
             console.log('El turno de', message.data , 'ha terminado');
           }
 
           else if (message.type === 'END_GAME') {
+            alert('Fin del Juego');
             console.log(message.data);
           }
 
@@ -74,10 +80,12 @@ export class GameComponent implements OnInit, AfterViewInit {
           }
 
           else if (message.type === 'JOIN_ROOM') {
+            alert('Jugador Conectado: ' + message.data);
             console.log('Jugador Conectado:', message.data);
           }
 
           else if (message.type === 'LEAVE_ROOM') {
+            alert('Jugador Desconectado: ' + message.data);
             this.players = this.players.filter(player => player.username !== message.data);
             console.log('Jugador Desconectado:', message.data);
           }
@@ -117,7 +125,26 @@ export class GameComponent implements OnInit, AfterViewInit {
       this.setupCanvas();
     }
   }
+  startGame() {
+    const message = {
+      type: 'START_GAME',
+      data: ''
+    };
+    this.socket.SendMessage(JSON.stringify(message));
+    this.gameStarted = true;
+  }
 
+  sendMessage() {
+    const message = (document.getElementById('message') as HTMLInputElement).value;
+    console.log('Mensaje:', message);
+    const messageToSend = {
+      type: 'SEND_MESSAGE',
+      data: message
+    };
+    this.socket.SendMessage(JSON.stringify(messageToSend));
+    this.messages.push({user: 'me', message: message});
+  }
+  
   setupCanvas(): void {
     const canvas = this.canvasRef.nativeElement;
     const ctx = canvas.getContext('2d');
