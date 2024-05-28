@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, AfterViewInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SocketService } from '../services/socket.service';
+import { time } from 'console';
 
 @Component({
   selector: 'app-game',
@@ -16,6 +17,9 @@ export class GameComponent implements OnInit, AfterViewInit {
   width: number = 5;
   drawing: boolean = false;
   coords = { x: 0, y: 0 };
+  word: string = '';
+  players: {username: string, puntos: number}[] = [];
+  messages: {user:string, message:string}[] = [];
 
   constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -31,9 +35,12 @@ export class GameComponent implements OnInit, AfterViewInit {
             console.log('Aviso:', message.data);
           }
           else if (message.type === 'MESSAGE') {
+            var chat = message.data.split(':');
+            this.messages.push({user: chat[0], message: chat[1]});
             console.log(message.data);
           }
           else if (message.type === 'WORD') {
+            this.word = message.data;
             console.log('Palabra a Dibujar:', message.data);
           }
 
@@ -46,6 +53,7 @@ export class GameComponent implements OnInit, AfterViewInit {
           }
 
           else if (message.type === 'TIME') {
+            this.timeLeft = message.data;
             console.log('Tiempo Restante:', message.data);
           }
 
@@ -63,6 +71,25 @@ export class GameComponent implements OnInit, AfterViewInit {
 
           else if (message.type === 'POINTS') {
               console.log('Puntos:', message.data);
+          }
+
+          else if (message.type === 'JOIN_ROOM') {
+            console.log('Jugador Conectado:', message.data);
+          }
+
+          else if (message.type === 'LEAVE_ROOM') {
+            this.players = this.players.filter(player => player.username !== message.data);
+            console.log('Jugador Desconectado:', message.data);
+          }
+
+          else if (message.type === 'PLAYERS') {
+            this.players = message.data;
+            this.players.sort((a, b) => b.puntos - a.puntos);
+            console.log('Jugadores:', message.data);
+          }
+
+          else if (message.type === 'CLEAR') {
+            this.clearCanvas();
           }
           else {
             console.log('Message received but type is not recognized:', message);

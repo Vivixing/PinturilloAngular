@@ -1,51 +1,24 @@
-<div class="flex flex-wrap justify-center items-center space-x-20 space-y-10 my-auto mx-24">
-
-    <div class="flex flex-col flex-grow  max-h-[720px] bg-white shadow-xl rounded overflow-hidden">
+<div class="flex flex-wrap justify-center items-center space-x-8 space-y-8">
+    <div class="flex flex-col flex-grow  max-h-[720px] max-w-[350px] bg-white shadow-xl rounded overflow-hidden">
         <h1 class="text-center font-bold text-[#660273] text-[30px] my-2">Ranking</h1>
-        <div class="mx-10 my-2">
-            <div class="flex items-center">
-                <div>
-                    <p class="font-bold text-[#660273]">1</p>
-                </div>
-                <div class="flex items-center ml-2">
+        <table  class="flex-wrap mx-10 my-2 justify-between items-center" *ngFor="let player of players; let i = index">
+            <tr>
+                <td>
+                    <p class="font-bold text-[#660273]">{{i+1}}</p>
+                </td>
+                <td class="flex w-40">
                     <div class="h-10 w-10 rounded-full profilePic1"></div>
-                    <p class="ml-2">Laurens </p>
-                </div>
-                <div>
-                    <p class="font-bold">50</p>
-                </div>
-            </div>
-        
-            <div class="flex items-center mt-2">
-                <div>
-                    <p class="font-bold text-[#660273]">2</p>
-                </div>
-                <div class="flex items-center ml-2">
-                    <div class="h-10 w-10 rounded-full profilePic3"></div>
-                    <p class="ml-2">Diana</p>
-                </div>
-                <div>
-                    <p class="font-bold">40</p>
-                </div>
-            </div>
-        
-            <div class="flex items-center mt-2">
-                <div>
-                    <p class="font-bold text-[#660273]">3</p>
-                </div>
-                <div class="flex items-center ml-2">
-                    <div class="h-10 w-10 rounded-full profilePic2"></div>
-                    <p class="ml-2">Vanessa</p>
-                </div>
-                <div>
-                    <p class="font-bold">30</p>
-                </div>
-            </div>
-        </div>
+                    <p class="font-semibold">{{player.username}}</p>
+                </td>
+                <td>
+                    <p class="font-bold">{{player.puntos}}</p>
+                </td>
+            </tr>
+        </table>
         
     </div>
 
-    <div class="game max-w-600">
+    <div class="game">
         <div class="info flex justify-around items-center h-[50px]">
             <div class="clock w-20 h-20 rounded-full text-center flex items-center justify-center">
                 <h1 id="time">{{ timeLeft }}</h1>
@@ -54,7 +27,7 @@
                 <p class="text-white">Room #616</p>
             </div>
             <div class="word text-white text-center">
-                <p class="font-bold text-[30px]">_ _ _ _</p>
+                <p class="font-bold text-[30px]">{{word}}</p>
             </div>
             <div>
                 <p class="text-white">Round 1/3</p>
@@ -111,11 +84,11 @@
         <div
             class="flex flex-col flex-grow w-full max-w-xl max-h-[720px] bg-white shadow-xl rounded-lg overflow-hidden">
             <div class="flex flex-col flex-grow p-4 overflow-auto">
-                <div class="flex w-full mt-2 space-x-3 max-w-xs">
+                <div class="flex w-full mt-2 space-x-3 max-w-xs" *ngFor="let message of messages">
                     <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic1"></div>
                     <div>
                         <div class="bg-[#F2B3E1] p-3 rounded-r-lg rounded-bl-lg">
-                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <p class="text-sm">{{message.message}}</p>
                         </div>
                     </div>
                 </div>
@@ -124,66 +97,6 @@
                         <div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
                             <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
                             </p>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
-                </div>
-                <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-                    <div>
-                        <div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
-                            <p class="text-sm">Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
-                </div>
-                <div class="flex w-full mt-2 space-x-3 max-w-xs">
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic3"></div>
-                    <div>
-                        <div class="bg-[#F2B3E1] p-3 rounded-r-lg rounded-bl-lg">
-                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-                    <div>
-                        <div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
-                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. </p>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
-                </div>
-                <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-                    <div>
-                        <div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
-                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                tempor incididunt.</p>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
-                </div>
-                <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-                    <div>
-                        <div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
-                            <p class="text-sm">Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
-                </div>
-                <div class="flex w-full mt-2 space-x-3 max-w-xs">
-                    <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic1"></div>
-                    <div>
-                        <div class="bg-[#F2B3E1] p-3 rounded-r-lg rounded-bl-lg">
-                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-                    <div>
-                        <div class="bg-[#660273] text-white p-3 rounded-l-lg rounded-br-lg">
-                            <p class="text-sm">Lorem ipsum dolor sit.</p>
                         </div>
                     </div>
                     <div class="flex-shrink-0 h-10 w-10 rounded-full profilePic2"></div>
