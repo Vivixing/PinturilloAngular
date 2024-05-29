@@ -12,12 +12,13 @@ export class GameComponent implements OnInit, AfterViewInit {
   @ViewChild('canvasElement', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
   isBrowser: boolean;
 
-  timeLeft: number = 99;
+  timeLeft: number = 90;
   color: string = "#000000";
   width: number = 5;
   drawing: boolean = false;
   coords = { x: 0, y: 0 };
   word: string = '';
+  username: string = 'userWeb';
   players: {username: string, puntos: number}[] = [];
   messages: {user:string, message:string}[] = [];
   gameStarted: boolean = false;
@@ -100,13 +101,13 @@ export class GameComponent implements OnInit, AfterViewInit {
             this.clearCanvas();
           }
           else {
-            console.log('Message received but type is not recognized:', message);
+            console.log('Mensaje no reconocido:', message);
           }
         } else {
-          console.log('Message received but type is null or message is null:', message);
+          console.log('Mensaje nulo:', message);
         }
       } catch (error) {
-        console.error('Error parsing message:', error, message);
+        console.error('Error al convertir el mensaje: ', error, message);
       }
     });
   }
@@ -114,7 +115,8 @@ export class GameComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     console.log("Is browser:", this.isBrowser);
     if (this.isBrowser) {
-      this.socket.connect(1, "username");
+      this.socket.connect(1, this.username);
+      this.players.push({username: this.username, puntos: 0});
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d', { willReadFrequently: true });
     }
@@ -131,7 +133,9 @@ export class GameComponent implements OnInit, AfterViewInit {
       data: ''
     };
     this.socket.SendMessage(JSON.stringify(message));
-    this.gameStarted = true;
+    if(this.players.length > 1){
+      this.gameStarted = true;
+    }
   }
 
   sendMessage() {
