@@ -1,0 +1,10 @@
+.round{
+    border-radius: 50px;
+    border-color: #F2B3E1;
+}
+.btn-join, .btn-new-room{
+    background-color: #660273;
+}
+.text-see-all{
+    color:#660273;
+}
