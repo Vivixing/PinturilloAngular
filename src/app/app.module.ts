@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { ResultadoComponent } from './resultado/resultado.component';
 import { GameComponent } from './game/game.component';
+import { SalasDisponiblesComponent } from './salas-disponibles/salas-disponibles.component';
 
 
 
@@ -15,6 +16,7 @@ import { GameComponent } from './game/game.component';
     IndexComponent,
     ResultadoComponent,
     GameComponent,
+    SalasDisponiblesComponent,
   ],
   imports: [
     BrowserModule,
