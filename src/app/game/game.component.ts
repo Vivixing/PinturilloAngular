@@ -1,7 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, AfterViewInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SocketService } from '../services/socket.service';
-import { time } from 'console';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-game',
@@ -12,6 +12,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   @ViewChild('canvasElement', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
   isBrowser: boolean;
 
+
   timeLeft: number = 90;
   color: string = "#000000";
   width: number = 5;
@@ -21,7 +22,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   username: string = 'userWeb';
   players: {username: string, puntos: number}[] = [];
   messages: {user:string, message:string}[] = [];
-  gameStarted: boolean = false;
+  gameStarted: boolean = true;
   rondas = 1;
   rondaActual = 0;
 
@@ -36,13 +37,17 @@ export class GameComponent implements OnInit, AfterViewInit {
             console.log('Turno Jugador:', message.data);
           }
           else if (message.type === 'ANNOUNCEMENT') {
-            alert(message.data);
+            Swal.fire({
+              title: 'Aviso',
+              text: message.data,
+              icon: 'info',
+              confirmButtonText: 'Ok'
+            });
             console.log('Aviso:', message.data);
           }
           else if (message.type === 'MESSAGE') {
             var chat = message.data.split(':');
             this.messages.push({user: chat[0], message: chat[1]});
-            console.log(message.data);
           }
           else if (message.type === 'WORD') {
             this.word = message.data;
@@ -50,12 +55,22 @@ export class GameComponent implements OnInit, AfterViewInit {
           }
 
           else if (message.type === 'GUESSWORD') {
-            alert(message.data);
+            Swal.fire({
+              title: 'Adivinaste la Palabra',
+              text: message.data,
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            });
             console.log(message.data);
           }
 
           else if (message.type === 'USER_TURN') {
-            alert(message.data + ' esta dibujando');
+            Swal.fire({
+              title: 'Turno de Dibujar',
+              text: message.data,
+              icon: 'info',
+              confirmButtonText: 'Ok'
+            });
             console.log('Jugador Dibujando:', message.data);
           }
 
@@ -66,7 +81,12 @@ export class GameComponent implements OnInit, AfterViewInit {
 
           else if (message.type === 'USER_END_TURN') {
             this.word = '';
-            alert('El turno de ' + message.data + ' ha terminado')
+            Swal.fire({
+              title: 'Turno Terminado',
+              text: message.data,
+              icon: 'info',
+              confirmButtonText: 'Ok'
+            });
             console.log('El turno de', message.data , 'ha terminado');
           }
 
@@ -76,7 +96,12 @@ export class GameComponent implements OnInit, AfterViewInit {
           }
           
           else if (message.type === 'END_GAME') {
-            alert('Fin del Juego');
+            Swal.fire({
+              title: 'Fin del Juego',
+              text: message.data,
+              icon: 'info',
+              confirmButtonText: 'Ok'
+            });
             console.log(message.data);
           }
 
@@ -89,12 +114,22 @@ export class GameComponent implements OnInit, AfterViewInit {
           }
 
           else if (message.type === 'JOIN_ROOM') {
-            alert('Jugador Conectado: ' + message.data);
+            Swal.fire({
+              title: 'Jugador Conectado',
+              text: message.data,
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            });
             console.log('Jugador Conectado:', message.data);
           }
 
           else if (message.type === 'LEAVE_ROOM') {
-            alert('Jugador Desconectado: ' + message.data);
+            Swal.fire({
+              title: 'Jugador Desconectado',
+              text: message.data,
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            });
             this.players = this.players.filter(player => player.username !== message.data);
             console.log('Jugador Desconectado:', message.data);
           }
