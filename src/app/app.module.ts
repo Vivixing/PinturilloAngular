@@ -7,6 +7,7 @@ import { IndexComponent } from './index/index.component';
 import { ResultadoComponent } from './resultado/resultado.component';
 import { GameComponent } from './game/game.component';
 import { SalasDisponiblesComponent } from './salas-disponibles/salas-disponibles.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -21,6 +22,8 @@ import { SalasDisponiblesComponent } from './salas-disponibles/salas-disponibles
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration(),
