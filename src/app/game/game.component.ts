@@ -22,6 +22,8 @@ export class GameComponent implements OnInit, AfterViewInit {
   players: {username: string, puntos: number}[] = [];
   messages: {user:string, message:string}[] = [];
   gameStarted: boolean = false;
+  rondas = 1;
+  rondaActual = 0;
 
   constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -63,6 +65,7 @@ export class GameComponent implements OnInit, AfterViewInit {
           }
 
           else if (message.type === 'USER_END_TURN') {
+            this.word = '';
             alert('El turno de ' + message.data + ' ha terminado')
             console.log('El turno de', message.data , 'ha terminado');
           }
@@ -95,6 +98,16 @@ export class GameComponent implements OnInit, AfterViewInit {
             this.players = message.data;
             this.players.sort((a, b) => b.puntos - a.puntos);
             console.log('Jugadores:', message.data);
+          }
+
+          else if(message.type === 'MAX_ROUNDS') {
+            this.rondas = message.data;
+            console.log('Rondas:', message.data);
+          }
+
+          else if(message.type === 'ROUND') {
+            this.rondaActual = message.data;
+            console.log('Ronda:', message.data);
           }
 
           else if (message.type === 'CLEAR') {
