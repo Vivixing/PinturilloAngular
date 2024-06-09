@@ -70,6 +70,11 @@ export class GameComponent implements OnInit, AfterViewInit {
             console.log('El turno de', message.data , 'ha terminado');
           }
 
+          else if(message.type === 'GAME_STARTED') {
+            this.gameStarted = message.data;
+            console.log('Juego Iniciado:', message.data);
+          }
+          
           else if (message.type === 'END_GAME') {
             alert('Fin del Juego');
             console.log(message.data);
