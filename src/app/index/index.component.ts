@@ -16,7 +16,7 @@ export class IndexComponent implements OnInit {
   modalOpen = false;
   joinRoomForm : FormGroup = new FormGroup({
     username: new FormControl ('',Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20),Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/)])),
-    roomcode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(1), Validators.pattern(/^([0-9])*$/)]))
+    roomcode: new FormControl(0,Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(4),Validators.pattern(/^[0-9]+$/)]) )
   });
   salasDeJuego : SalaDeJuego[] = [];
   avatarSalaSeleccionado = {name:'avatarDefault', src:'media/iconSala.png'}
@@ -63,9 +63,17 @@ export class IndexComponent implements OnInit {
   hideLoader(){
     Swal.close();
   }
+  
+  changeName(){
+    if(this.joinRoomForm.controls['username'].invalid){
+      return;
+    }
+    this.stateService.updateState({username:this.joinRoomForm.value.username})
+  }
+  
 
-  joinRoomForId(id:string){
-    this.joinRoomForm.controls.roomcode.setValue(id);
+  joinRoomForId(id:number):void{
+    this.joinRoomForm.controls['roomcode'].setValue(id);
     this.joinRoom();
   }
   
@@ -79,7 +87,6 @@ export class IndexComponent implements OnInit {
       this.hideLoader();
       this.stateService.updateState({roomcode:this.joinRoomForm.value.roomcode,username:this.joinRoomForm.value.username})
       this.route.navigate(['/Game']);
-      this.joinRoomForm.reset();
     } catch (error:any) {
       console.log(error);
       this.hideLoader();

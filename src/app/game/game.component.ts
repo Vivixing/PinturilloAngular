@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { StateService } from '../services/state.service';
 import { Subscription } from 'rxjs';
 import { RankingService } from '../services/ranking.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -33,7 +34,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   rondas = 1;
   rondaActual = 0;
 
-  constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object, private route:ActivatedRoute, private stateService:StateService, private rankingService: RankingService) {
+  constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object, private route:ActivatedRoute, private stateService:StateService, private rankingService: RankingService, private router: Router) {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
     this.socket.$subject.subscribe((message) => {
@@ -110,7 +111,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
               confirmButtonText: 'Ok'
             });
             console.log(message.data);
-            this.route.navigate(['/Result'])
+            this.router.navigate(['/Results']);
           }
 
           else if (message.type === 'RESULTS') {
@@ -177,7 +178,6 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log("Is browser:", this.isBrowser);
     if (this.isBrowser) {
       this.subscription = this.stateService.state$.subscribe((state)=>{
         this.username = state.username;

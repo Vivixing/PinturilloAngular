@@ -6,6 +6,8 @@
             </span>
             Sketch And Guess
         </h1>
+    
+        <div class="flex flex-row justify-around size-4/5 bg-transparent mb-10">
         <div class="flex flex-row justify-around size-4/5 bg-transparent mb-10">
             <div class="bg-transparent w-[40%] h-[33.333333%]">
                 <h1 class="text-white py-5 font-semibold text-xl bg-transparent">Available Rooms</h1>
@@ -14,12 +16,16 @@
                             <img class="bg-transparent mr-4" [src]="'./assets/' + avatarSalaSeleccionado.src" alt="Icono Sala" width="30px">
                             <h1 class="bg-transparent font-semibold text-sm">{{sala.nombre}}</h1>
                         </div>
-                        <button class="btn-join py-1 px-5 text-white rounded-2xl font-medium text-sm transition ease-out hover:scale-110" (click)="joinRoomForId(sala.idSalaDeJuego)" [disabled]="joinRoomForm.invalid">Join</button>
-                    </div>
+                        <button class="btn-join py-1 px-5 text-white rounded-2xl font-medium text-sm transition ease-out hover:scale-110" 
+                        (click)="joinRoomForId(sala.idSalaDeJuego!)" 
+                        [disabled]="joinRoomForm.invalid || sala.idSalaDeJuego === undefined">
+                Join
+                </button>
                     </div>
                     <button routerLink="/SalasDisponibles" class="text-see-all w-full py-5 rounded-2xl bg-white font-medium">See All</button>
+                    </div>
             </div>
-            <hr class="mt-8 w-[0.05vw] h-[56vh] border-0 border-[#ffffff] bg-[#ffffff]">
+            <hr class="mt-8 w-[0.05vw] h-[56vh] border-0 border-[#ffffff] bg-[#ffffff] mx-4">
             <div class="bg-transparent w-[40%] flex flex-col justify-between items-center">
                 <div class="flex items-center">
                     <img class="mt-7 bg-transparent" [src]="'./assets/' + avatarSelected.src" alt="Avatar Default" width="64px">
@@ -37,11 +43,13 @@
                 </div>
                 <form [formGroup]="joinRoomForm">
                     <div class="flex justify-center items-center bg-transparent relative mb-7">
-                        <input formControlName="username" type="text" name="usernamename" id="name" class="ring ring-[#F2B3E1] ring-inset bg-white py-2 pl-10 rounded-xl w-full" placeholder="Name">
-                        <span class="text-red-400" *ngIf="joinRoomForm.get('usernamename')?.errors && joinRoomForm.get('usernamename')?.touched && joinRoomForm.get('usernamename')?.hasError('required')">Campo Requerido</span>
-                        <span class="text-red-400" *ngIf="joinRoomForm.get('usernamename')?.errors && joinRoomForm.get('usernamename')?.touched && joinRoomForm.get('usernamename')?.hasError('minLength')">El nombre debe tener mínimo 3 caracteres</span>
-                        <span class="text-red-400" *ngIf="joinRoomForm.get('usernamename')?.errors && joinRoomForm.get('usernamename')?.touched && joinRoomForm.get('usernamename')?.hasError('maxLength')">El nombre debe tener máximo 20 caracteres</span>
-                        <span class="text-red-400" *ngIf="joinRoomForm.get('usernamename')?.errors && joinRoomForm.get('usernamename')?.touched && joinRoomForm.get('usernamename')?.hasError('pattern')">Solo letras</span>
+                        <input formControlName="username" type="text" name="username" id="name"
+                        class="ring ring-[#F2B3E1] ring-inset bg-white py-2 pl-10 rounded-xl w-full"
+                        placeholder="Name" (input)="changeName()">
+                        <span class="text-red-400" *ngIf="joinRoomForm.get('username')?.errors && joinRoomForm.get('username')?.touched && joinRoomForm.get('username')?.hasError('required')">Campo Requerido</span>
+                        <span class="text-red-400" *ngIf="joinRoomForm.get('username')?.errors && joinRoomForm.get('username')?.touched && joinRoomForm.get('username')?.hasError('minLength')">El nombre debe tener mínimo 3 caracteres</span>
+                        <span class="text-red-400" *ngIf="joinRoomForm.get('username')?.errors && joinRoomForm.get('username')?.touched && joinRoomForm.get('username')?.hasError('maxLength')">El nombre debe tener máximo 20 caracteres</span>
+                        <span class="text-red-400" *ngIf="joinRoomForm.get('username')?.errors && joinRoomForm.get('username')?.touched && joinRoomForm.get('username')?.hasError('pattern')">Solo letras</span>
                         <span class="material-symbols-outlined bg-transparent absolute inset-y-0 pl-3 left-0 flex items-center pointer-events-none">
                             person
                         </span>
@@ -57,12 +65,12 @@
                     </div>
                 </form>
                 <button class="flex justify-center items-center rounded-full btn-new-room py-2 px-5 w-full text-white font-bold text-lg transition ease-out hover:-translate-y-1 hover:scale-110" (click)="joinRoom()" [disabled]="joinRoomForm.invalid">
-                    New Room
+                    Join Room
                     <span class="material-symbols-outlined bg-transparent ml-2">
                         door_open
                     </span>
                 </button>
             </div>
         </div>
-    </div>
-</div>
+        </div>
+        </div>
