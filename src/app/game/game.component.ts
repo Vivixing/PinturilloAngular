@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import { ActivatedRoute } from '@angular/router';
 import { StateService } from '../services/state.service';
 import { Subscription } from 'rxjs';
+import { RankingService } from '../services/ranking.service';
 
 @Component({
   selector: 'app-game',
@@ -32,7 +33,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   rondas = 1;
   rondaActual = 0;
 
-  constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object, private route:ActivatedRoute, private stateService:StateService) {
+  constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object, private route:ActivatedRoute, private stateService:StateService, private rankingService: RankingService) {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
     this.socket.$subject.subscribe((message) => {
@@ -328,5 +329,12 @@ changeCustomColor(event: Event): void {
   changeWidth(num: number): void {
     this.width = num;
     console.log("Ancho seleccionado:", this.width);
+  }
+
+  updateGameRanking(){
+    const ranking = this.players.map(player => {
+      return {username: player.username, puntos: player.puntos};
+    });
+    this.rankingService.updateRanking(ranking);
   }
 }

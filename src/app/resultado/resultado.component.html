@@ -7,28 +7,12 @@
             </div>
             <div class="flex flex-wrap flex-col justify-center items-center w-96">
                 <h2 class="justify-center items-center text-center text-white text-[18px] font-bold">Results</h2>
-                <div class="rank flex flex-wrap flex-col justify-center items-center w-[250px] h-[60px] my-3 rounded-[13px]">
+                <div *ngFor="let usuario of ranking; index as i" class="rank flex flex-wrap flex-col justify-center items-center w-[250px] h-[60px] my-3 rounded-[13px]">
                     <div>
-                        <img src="../../assets/media/mujer1.png"> <h1 class="font-bold ">Marta</h1>
+                        <img src="../../assets/media/usuario.png"> <h1 class="font-bold ">{{usuario.nombre}}: {{usuario.puntuacion}}</h1>
                     </div>
                     <div class="number w-[50px] h-[30px] rounded-[14px]">
-                        <h1 class="justify-center items-center text-center text-white text-[13px] mt-[4px]">1</h1>
-                    </div>
-                </div>
-                <div class="rank flex flex-wrap flex-col justify-center items-center w-[250px] h-[60px] my-3 rounded-[13px]">
-                    <div>
-                        <img src="../../assets/media/mujer2.png"> <h1 class="font-bold">Patricia</h1>
-                    </div>
-                    <div class="number w-[50px] h-[30px] rounded-[14px]">
-                        <h1 class="justify-center items-center text-center text-white text-[13px] mt-[4px]">2</h1>
-                    </div>    
-                </div>
-                <div class="rank flex flex-wrap flex-col justify-center items-center w-[250px] h-[60px] my-3 rounded-[13px]">
-                    <div>
-                        <img src="../../assets/media/hombre1.png"> <h1 class="font-bold">Fernando</h1>
-                    </div>
-                    <div class="number w-[50px] h-[30px] rounded-[14px]">
-                        <h1 class="justify-center items-center text-center text-white text-[13px] mt-[4px]">3</h1>
+                        <h1 class="justify-center items-center text-center text-white text-[13px] mt-[4px]">{{i+1}}</h1>
                     </div>
                 </div>
                 <div class="flex flex-wrap flex-row justify-center items-center text-white w-96 mt-[40px] mb-[40px] ">
