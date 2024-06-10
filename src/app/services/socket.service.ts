@@ -14,7 +14,7 @@ export class SocketService {
   constructor(private router: Router) {
   }
 
-  connect(idSalaDeJuego: number, username: string) {
+  connect(idSalaDeJuego: string, username: string) {
     this.ws = new WebSocket(`${this.url}/ws/room/${idSalaDeJuego}/${username}`);
     this.ws.onopen = () => {
       console.log('Connected to server');

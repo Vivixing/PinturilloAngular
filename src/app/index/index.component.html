@@ -50,11 +50,11 @@
                 </div>
                 <form [formGroup]="joinRoomForm">
                     <div class="flex justify-center items-center bg-transparent relative mb-7">
-                        <input formControlName="name" type="text" name="name" id="name" class="ring ring-[#F2B3E1] ring-inset bg-white py-2 pl-10 rounded-xl w-full" placeholder="Name">
-                        <span class="text-red-400" *ngIf="joinRoomForm.get('name')?.errors && joinRoomForm.get('name')?.touched && joinRoomForm.get('name')?.hasError('required')">Campo Requerido</span>
-                        <span class="text-red-400" *ngIf="joinRoomForm.get('name')?.errors && joinRoomForm.get('name')?.touched && joinRoomForm.get('name')?.hasError('minLength')">El nombre debe tener mínimo 3 caracteres</span>
-                        <span class="text-red-400" *ngIf="joinRoomForm.get('name')?.errors && joinRoomForm.get('name')?.touched && joinRoomForm.get('name')?.hasError('maxLength')">El nombre debe tener máximo 20 caracteres</span>
-                        <span class="text-red-400" *ngIf="joinRoomForm.get('name')?.errors && joinRoomForm.get('name')?.touched && joinRoomForm.get('name')?.hasError('pattern')">Solo letras</span>
+                        <input formControlName="usernamename" type="text" name="usernamename" id="name" class="ring ring-[#F2B3E1] ring-inset bg-white py-2 pl-10 rounded-xl w-full" placeholder="Name">
+                        <span class="text-red-400" *ngIf="joinRoomForm.get('usernamename')?.errors && joinRoomForm.get('usernamename')?.touched && joinRoomForm.get('usernamename')?.hasError('required')">Campo Requerido</span>
+                        <span class="text-red-400" *ngIf="joinRoomForm.get('usernamename')?.errors && joinRoomForm.get('usernamename')?.touched && joinRoomForm.get('usernamename')?.hasError('minLength')">El nombre debe tener mínimo 3 caracteres</span>
+                        <span class="text-red-400" *ngIf="joinRoomForm.get('usernamename')?.errors && joinRoomForm.get('usernamename')?.touched && joinRoomForm.get('usernamename')?.hasError('maxLength')">El nombre debe tener máximo 20 caracteres</span>
+                        <span class="text-red-400" *ngIf="joinRoomForm.get('usernamename')?.errors && joinRoomForm.get('usernamename')?.touched && joinRoomForm.get('usernamename')?.hasError('pattern')">Solo letras</span>
                         <span class="material-symbols-outlined bg-transparent absolute inset-y-0 pl-3 left-0 flex items-center pointer-events-none">
                             person
                         </span>

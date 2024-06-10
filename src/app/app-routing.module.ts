@@ -8,7 +8,7 @@ import { SalasDisponiblesComponent } from './salas-disponibles/salas-disponibles
 const routes: Routes = [
   {path:'', redirectTo:'Index', pathMatch:'full'},
   {path:'Index', component: IndexComponent},
-  {path:'Game', component:GameComponent},
+  {path:'Game/:roomcode/:username', component:GameComponent},
   {path:'Result', component:ResultadoComponent},
   {path:'SalasDisponibles', component:SalasDisponiblesComponent},
   {path:'**', redirectTo:'Index', pathMatch:'full'}

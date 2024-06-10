@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class IndexComponent implements OnInit {
   modalOpen = false;
   joinRoomForm : FormGroup = new FormGroup({
-    name: new FormControl ('',Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20),Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/)])),
+    username: new FormControl ('',Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20),Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/)])),
     roomcode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(1), Validators.pattern(/^([0-9])*$/)]))
   });
   avatarSelected = {name:'avatarDefault', src:'media/usuario.png'}
@@ -63,11 +63,12 @@ export class IndexComponent implements OnInit {
     }
     this.showLoader();
     try {
-      await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.name);
+      await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.username);
       this.hideLoader();
+      this.route.navigate(['/Game',this.joinRoomForm.value.roomcode, this.joinRoomForm.value.username]);
       this.joinRoomForm.reset();
-      this.route.navigate(['/Game']);
     } catch (error:any) {
+      console.log(error);
       this.hideLoader();
       Swal.fire({
         icon:'error',

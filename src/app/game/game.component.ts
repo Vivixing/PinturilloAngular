@@ -2,6 +2,7 @@ import { Component, ElementRef, Inject, OnInit, AfterViewInit, PLATFORM_ID, View
 import { isPlatformBrowser } from '@angular/common';
 import { SocketService } from '../services/socket.service';
 import Swal from 'sweetalert2'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -13,20 +14,22 @@ export class GameComponent implements OnInit, AfterViewInit {
   isBrowser: boolean;
 
 
+  roomcode:string='';
+  username:string='';
+
   timeLeft: number = 90;
   color: string = "#000000";
   width: number = 5;
   drawing: boolean = false;
   coords = { x: 0, y: 0 };
   word: string = '';
-  username: string = 'userWeb';
   players: {username: string, puntos: number}[] = [];
   messages: {user:string, message:string}[] = [];
   gameStarted: boolean = true;
   rondas = 1;
   rondaActual = 0;
 
-  constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object, private route:ActivatedRoute) {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
     this.socket.$subject.subscribe((message) => {
@@ -168,7 +171,11 @@ export class GameComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     console.log("Is browser:", this.isBrowser);
     if (this.isBrowser) {
-      this.socket.connect(1, this.username);
+      //Se debe traer como se maneja en el app.routing.module.ts del /Game
+      this.roomcode = this.route.snapshot.paramMap.get('roomcode') ?? '';
+      this.username = this.route.snapshot.paramMap.get('name') ?? '';
+
+      this.socket.connect(this.roomcode, this.username);
       this.players.push({username: this.username, puntos: 0});
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d', { willReadFrequently: true });
