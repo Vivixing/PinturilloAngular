@@ -15,7 +15,7 @@ export class SalaDeJuegoService{
 
     encontrarTodos():Observable<SalaDeJuego[]>{ 
         //Observable es asíncrono, permite obtener datos a menera que estén disponibles
-        return this.http.get<SalaDeJuego[]>(`${this.urlSalaDeJuego}salaDeJuegos`)
+        return this.http.get<SalaDeJuego[]>(`${this.urlSalaDeJuego}salasDeJuego`)
     }
 
     encontrarIdSalaDeJuego(idSalaDeJuego:number):Observable<SalaDeJuego>{

@@ -88,7 +88,7 @@ export class IndexComponent implements OnInit {
 
   obtenerSalasDeJuego(){
     this.salaDeJuegoServicio.encontrarTodos().subscribe((salas : SalaDeJuego[])=>{
-      this.salasDeJuego = salas.filter(sala => sala.estado === 'disponible').slice(0,3);
+      this.salasDeJuego = salas.filter(sala => sala.estado === 'Sin iniciar').slice(0,3);
     },
   error =>{
     Swal.fire('Error', 'Error al obtener las salas de juego', error.message);

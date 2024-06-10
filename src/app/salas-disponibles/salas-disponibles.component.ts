@@ -19,10 +19,11 @@ export class SalasDisponiblesComponent implements OnInit{
 
   obtenerSalasDeJuego(){
     this.salaDeJuegoServicio.encontrarTodos().subscribe((salas : SalaDeJuego[])=>{
-      this.salasDeJuego = salas.filter(sala => sala.estado === 'disponible');
+      this.salasDeJuego = salas.filter(sala => sala.estado === 'Sin iniciar');
     },
   error =>{
     Swal.fire('Error', 'Error al obtener las salas de juego', error.message);
+    console.log(error);
   });
   }
 
