@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { SocketService } from '../services/socket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -21,6 +24,11 @@ export class IndexComponent implements OnInit {
     {name:'avatar5', src:'media/avatar5.svg'},
     {name:'avatar6', src:'media/avatar6.svg'}
   ]
+
+  constructor(private unirseSalaJuego:SocketService, private route:Router){
+
+  }
+
   ngOnInit(): void {
     
   }
@@ -38,10 +46,36 @@ export class IndexComponent implements OnInit {
     this.modalOpen = false;
   }
 
-  joinRoom(){
+  showLoader(){
+    Swal.fire({
+      title:'Cargando...',
+      allowOutsideClick:false,
+    })
+  }
+
+  hideLoader(){
+    Swal.close();
+  }
+
+  async joinRoom(){
     if(this.joinRoomForm.invalid){
       return;
     }
-    console.log(this.joinRoomForm.value);
+    this.showLoader();
+    try {
+      await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.name);
+      this.hideLoader();
+      this.joinRoomForm.reset();
+      this.route.navigate(['/Game']);
+    } catch (error:any) {
+      this.hideLoader();
+      Swal.fire({
+        icon:'error',
+        title:'Oops...',
+        text:error.error.message
+      });
+    }
+    
+    
   }
 }

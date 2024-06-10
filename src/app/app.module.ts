@@ -8,6 +8,7 @@ import { ResultadoComponent } from './resultado/resultado.component';
 import { GameComponent } from './game/game.component';
 import { SalasDisponiblesComponent } from './salas-disponibles/salas-disponibles.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -23,7 +24,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration(),

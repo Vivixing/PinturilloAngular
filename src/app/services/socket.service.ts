@@ -12,7 +12,6 @@ export class SocketService {
   subject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public $subject: Observable<any> = this.subject.asObservable();
   constructor(private router: Router) {
-
   }
 
   connect(idSalaDeJuego: number, username: string) {
