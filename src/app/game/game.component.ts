@@ -185,7 +185,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
       //this.roomcode = this.route.snapshot.paramMap.get('roomcode') ?? '';
       //this.username = this.route.snapshot.paramMap.get('name') ?? '';
 
-      this.socket.connect(this.roomcode, this.username);
+      //this.socket.connect(this.roomcode, this.username);
       this.players.push({username: this.username, puntos: 0});
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d', { willReadFrequently: true });
