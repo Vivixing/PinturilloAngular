@@ -1,0 +1,52 @@
+<div class="flex items-center justify-center h-screen">
+    <div class="flex flex-col items-center justify-center h-[80%] w-[55%] round border-4 bg-indigo-950 ">
+        <h1 class="flex justify-center items-center mt-8 text-center bg-transparent text-white text-2xl font-semibold">
+            <span class="bg-transparent">
+                <img class="bg-transparent mr-2" src="../../assets/media/logoblanco.png" alt="logo" width="50px">
+            </span>
+            Sketch And Guess
+        </h1>
+    
+        <div class="flex flex-row justify-around size-4/5 bg-transparent mb-10">
+        <div class="flex flex-row justify-around size-4/5 bg-transparent mb-10">
+            <div class="bg-transparent w-[40%] h-[33.333333%]">
+                <h1 class="text-white py-5 font-semibold text-xl bg-transparent">Categorias</h1>
+                    <div *ngFor="let categoria of categorias" class="flex justify-between items-center bg-white py-2 px-2 mb-5 rounded-xl">
+                        <div class="flex items-center justify-center bg-transparent">
+                            <h1 class="bg-transparent font-semibold text-sm">{{categoria.nombre}}</h1>
+                        </div>
+                        <button class="btn-join py-1 px-5 text-white rounded-2xl font-medium text-sm transition ease-out hover:scale-110" 
+                        (click)="categoriaSeleccionada(categoria.idCategoria!, categoria.nombre)" 
+                        [disabled]="categoria.idCategoria === undefined">
+                Join
+                </button>
+                    </div>
+                    </div>
+            </div>
+            <hr class="mt-8 w-[0.05vw] h-[56vh] border-0 border-[#ffffff] bg-[#ffffff] mx-4">
+            <div class="bg-transparent w-[40%] flex flex-col justify-between items-center">
+                <div class="flex items-center">
+                </div>
+                <form [formGroup]="createRoomForm">
+                    <div class="flex justify-center items-center bg-transparent relative mb-7">
+                        <input formControlName="nombreSala" type="text" name="nombreSala" id="name"
+                        class="ring ring-[#F2B3E1] ring-inset bg-white py-2 pl-10 rounded-xl w-full"
+                        placeholder="Name">
+                        <span class="text-red-400" *ngIf="createRoomForm.get('nombreSala')?.errors && createRoomForm.get('nombreSala')?.touched && createRoomForm.get('nombreSala')?.hasError('required')">Campo Requerido</span>
+                        <span class="text-red-400" *ngIf="createRoomForm.get('nombreSala')?.errors && createRoomForm.get('nombreSala')?.touched && createRoomForm.get('nombreSala')?.hasError('minLength')">El nombre debe tener mínimo 3 caracteres</span>
+                        <span class="text-red-400" *ngIf="createRoomForm.get('nombreSala')?.errors && createRoomForm.get('nombreSala')?.touched && createRoomForm.get('nombreSala')?.hasError('maxLength')">El nombre debe tener máximo 20 caracteres</span>
+                        <span class="material-symbols-outlined bg-transparent absolute inset-y-0 pl-3 left-0 flex items-center pointer-events-none">
+                            person
+                        </span>
+                    </div>
+                </form>
+                <button class="flex justify-center items-center rounded-full btn-new-room py-2 px-5 w-full text-white font-bold text-lg transition ease-out hover:-translate-y-1 hover:scale-110" (click)="createRoom()" [disabled]="createRoomForm.invalid">
+                    Create Room
+                    <span class="material-symbols-outlined bg-transparent ml-2">
+                        door_open
+                    </span>
+                </button>
+            </div>
+        </div>
+        </div>
+        </div>

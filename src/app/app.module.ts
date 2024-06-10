@@ -9,6 +9,7 @@ import { GameComponent } from './game/game.component';
 import { SalasDisponiblesComponent } from './salas-disponibles/salas-disponibles.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CrearSalaDeJuegoComponent } from './crear-sala-de-juego/crear-sala-de-juego.component';
 
 
 
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     ResultadoComponent,
     GameComponent,
     SalasDisponiblesComponent,
+    CrearSalaDeJuegoComponent,
   ],
   imports: [
     BrowserModule,
