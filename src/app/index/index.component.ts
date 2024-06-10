@@ -67,7 +67,7 @@ export class IndexComponent implements OnInit {
       await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.username);
       this.hideLoader();
       this.stateService.updateState({roomcode:this.joinRoomForm.value.roomcode,username:this.joinRoomForm.value.username})
-      this.route.navigate(['/Game',this.joinRoomForm.value.roomcode, this.joinRoomForm.value.username]);
+      this.route.navigate(['/Game']);
       this.joinRoomForm.reset();
     } catch (error:any) {
       console.log(error);
