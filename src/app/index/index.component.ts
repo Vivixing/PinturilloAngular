@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { SocketService } from '../services/socket.service';
 import { Router } from '@angular/router';
 import { StateService } from '../services/state.service';
+import { SalaDeJuegoService } from '../services/SalaDeJuego.service';
+import { SalaDeJuego } from '../interfaces/SalaDeJuego.interfaces';
 
 @Component({
   selector: 'app-index',
@@ -16,6 +18,8 @@ export class IndexComponent implements OnInit {
     username: new FormControl ('',Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20),Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/)])),
     roomcode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(1), Validators.pattern(/^([0-9])*$/)]))
   });
+  salasDeJuego : SalaDeJuego[] = [];
+  avatarSalaSeleccionado = {name:'avatarDefault', src:'media/iconSala.png'}
   avatarSelected = {name:'avatarDefault', src:'media/usuario.png'}
   avatarList = [
     {name:'avatar1', src:'media/avatar1.svg'},
@@ -26,12 +30,14 @@ export class IndexComponent implements OnInit {
     {name:'avatar6', src:'media/avatar6.svg'}
   ]
 
-  constructor(private unirseSalaJuego:SocketService, private route:Router, private stateService:StateService){
-
+  constructor(private unirseSalaJuego:SocketService, 
+              private route:Router, 
+              private stateService:StateService,
+              private salaDeJuegoServicio:SalaDeJuegoService){
   }
 
   ngOnInit(): void {
-    
+    this.obtenerSalasDeJuego();
   }
 
   changeAvatar(){
@@ -78,7 +84,15 @@ export class IndexComponent implements OnInit {
         text:error.error.message
       });
     }
-    
-    
   }
+
+  obtenerSalasDeJuego(){
+    this.salaDeJuegoServicio.encontrarTodos().subscribe((salas : SalaDeJuego[])=>{
+      this.salasDeJuego = salas.filter(sala => sala.estado === 'disponible').slice(0,3);
+    },
+  error =>{
+    Swal.fire('Error', 'Error al obtener las salas de juego', error.message);
+  });
+  }
+
 }

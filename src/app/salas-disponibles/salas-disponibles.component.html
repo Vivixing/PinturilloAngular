@@ -9,49 +9,11 @@
         <h1 class="text-white py-5 font-semibold text-xl bg-transparent">Available Rooms</h1>
         <div class="flex flex-row justify-around size-4/5 bg-transparent mb-10">
             <div class="bg-transparent w-[40%] h-[33.333333%]">
-                    <div class="flex justify-between items-center bg-white py-2 px-2 mb-5 rounded-xl">
+                    <div *ngFor="let sala of salasDeJuego" class="flex justify-between items-center bg-white py-2 px-2 mb-5 rounded-xl">
                         <div class="flex items-center justify-center bg-transparent">
-                            <img class="bg-transparent mr-4" src="../../assets/media/mujer1.png" alt="Marta">
-                            <h1 class="bg-transparent font-semibold text-sm">DEF123</h1>
+                            <img class="bg-transparent mr-4" [src]="'./assets/' + avatarSalaSeleccionado.src" alt="Icono Sala" width="30px">
+                            <h1 class="bg-transparent font-semibold text-sm">{{sala.nombre}}</h1>
                         </div>
-                        <button class="btn-join py-1 px-5 text-white rounded-2xl font-medium text-sm transition ease-out hover:scale-110">Join</button>
-                    </div>
-                    <div class="flex justify-between items-center bg-white py-2 px-2 mb-5 rounded-xl">
-                        <div class="flex items-center justify-center bg-transparent">
-                            <img class="bg-transparent mr-4" src="../../assets/media/mujer2.png" alt="Patrica">
-                            <h1 class="bg-transparent font-semibold text-sm">XYZABC</h1>
-                        </div>
-                        <button class="btn-join py-1 px-5 text-white rounded-2xl font-medium text-sm transition ease-out hover:scale-110">Join</button>
-                    </div>
-                    <div class="flex justify-between items-center bg-white py-2 px-2 mb-7 rounded-xl">
-                        <div class="flex items-center justify-center bg-transparent">
-                            <img class="bg-transparent mr-4" src="../../assets/media/hombre1.png" alt="Fernando">
-                            <h1 class="bg-transparent font-semibold text-sm">FORT42</h1>
-                        </div>
-                        <button class="btn-join py-1 px-5 text-white rounded-2xl font-medium text-sm transition ease-out hover:scale-110">Join</button>
-                    </div>
-            </div>
-            <div class="bg-transparent w-[40%] h-[33.333333%]">
-                    <div class="flex justify-between items-center bg-white py-2 px-2 mb-5 rounded-xl">
-                        <div class="flex items-center justify-center bg-transparent">
-                            <img class="bg-transparent mr-4" src="../../assets/media/mujer1.png" alt="Marta">
-                            <h1 class="bg-transparent font-semibold text-sm">DEF123</h1>
-                        </div>
-                        <button class="btn-join py-1 px-5 text-white rounded-2xl font-medium text-sm transition ease-out hover:scale-110">Join</button>
-                    </div>
-                    <div class="flex justify-between items-center bg-white py-2 px-2 mb-5 rounded-xl">
-                        <div class="flex items-center justify-center bg-transparent">
-                            <img class="bg-transparent mr-4" src="../../assets/media/mujer2.png" alt="Patrica">
-                            <h1 class="bg-transparent font-semibold text-sm">XYZABC</h1>
-                        </div>
-                        <button class="btn-join py-1 px-5 text-white rounded-2xl font-medium text-sm transition ease-out hover:scale-110">Join</button>
-                    </div>
-                    <div class="flex justify-between items-center bg-white py-2 px-2 mb-7 rounded-xl">
-                        <div class="flex items-center justify-center bg-transparent">
-                            <img class="bg-transparent mr-4" src="../../assets/media/hombre1.png" alt="Fernando">
-                            <h1 class="bg-transparent font-semibold text-sm">FORT42</h1>
-                        </div>
-                        <button class="btn-join py-1 px-5 text-white rounded-2xl font-medium text-sm transition ease-out hover:scale-110">Join</button>
                     </div>
             </div>
         </div>
