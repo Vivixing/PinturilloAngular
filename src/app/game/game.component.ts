@@ -110,6 +110,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
               confirmButtonText: 'Ok'
             });
             console.log(message.data);
+            this.route.navigate(['/Result'])
           }
 
           else if (message.type === 'RESULTS') {
