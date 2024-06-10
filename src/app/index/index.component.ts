@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { SocketService } from '../services/socket.service';
 import { Router } from '@angular/router';
+import { StateService } from '../services/state.service';
 
 @Component({
   selector: 'app-index',
@@ -25,7 +26,7 @@ export class IndexComponent implements OnInit {
     {name:'avatar6', src:'media/avatar6.svg'}
   ]
 
-  constructor(private unirseSalaJuego:SocketService, private route:Router){
+  constructor(private unirseSalaJuego:SocketService, private route:Router, private stateService:StateService){
 
   }
 
@@ -65,6 +66,7 @@ export class IndexComponent implements OnInit {
     try {
       await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.username);
       this.hideLoader();
+      this.stateService.updateState({roomcode:this.joinRoomForm.value.roomcode,username:this.joinRoomForm.value.username})
       this.route.navigate(['/Game',this.joinRoomForm.value.roomcode, this.joinRoomForm.value.username]);
       this.joinRoomForm.reset();
     } catch (error:any) {

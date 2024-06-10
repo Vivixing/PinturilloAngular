@@ -1,21 +1,24 @@
-import { Component, ElementRef, Inject, OnInit, AfterViewInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, AfterViewInit, PLATFORM_ID, ViewChild, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SocketService } from '../services/socket.service';
 import Swal from 'sweetalert2'
 import { ActivatedRoute } from '@angular/router';
+import { StateService } from '../services/state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
-export class GameComponent implements OnInit, AfterViewInit {
+export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('canvasElement', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
   isBrowser: boolean;
 
 
   roomcode:string='';
   username:string='';
+  subscription : Subscription = new Subscription();
 
   timeLeft: number = 90;
   color: string = "#000000";
@@ -29,7 +32,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   rondas = 1;
   rondaActual = 0;
 
-  constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object, private route:ActivatedRoute) {
+  constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object, private route:ActivatedRoute, private stateService:StateService) {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
     this.socket.$subject.subscribe((message) => {
@@ -167,13 +170,20 @@ export class GameComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  ngOnDestroy(): void {
+   this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     console.log("Is browser:", this.isBrowser);
     if (this.isBrowser) {
+      this.subscription = this.stateService.state$.subscribe((state)=>{
+        this.username = state.username;
+        this.roomcode = state.roomcode;
+      })
       //Se debe traer como se maneja en el app.routing.module.ts del /Game
-      this.roomcode = this.route.snapshot.paramMap.get('roomcode') ?? '';
-      this.username = this.route.snapshot.paramMap.get('name') ?? '';
+      //this.roomcode = this.route.snapshot.paramMap.get('roomcode') ?? '';
+      //this.username = this.route.snapshot.paramMap.get('name') ?? '';
 
       this.socket.connect(this.roomcode, this.username);
       this.players.push({username: this.username, puntos: 0});
