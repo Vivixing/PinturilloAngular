@@ -1,9 +1,5 @@
 <div class="flex flex-wrap justify-center items-center space-x-8 space-y-8">
 
-    <p>User:{{username}}</p>
-    <p>Room:{{roomcode}}</p>
-
-
     <div class="flex flex-col flex-grow  max-h-[720px] max-w-[350px] bg-white shadow-xl rounded overflow-hidden">
         <h1 class="text-center font-bold text-[#660273] text-[30px] my-2">Ranking</h1>
         <table  class="flex-wrap mx-10 my-2 justify-between items-center" *ngFor="let player of players; let i = index">

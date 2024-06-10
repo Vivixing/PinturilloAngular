@@ -17,16 +17,16 @@
 }
 
 .profilePic1{
-    background-image: url(../../assets/media/hombre1.png);
+    background-image: url(../../assets/media/avatar1.svg);
     background-repeat: no-repeat;
 }
 
 .profilePic2{
-    background-image: url(../../assets/media/mujer1.png);
+    background-image: url(../../assets/media/avatar2.svg);
     background-repeat: no-repeat;
 }
 
 .profilePic3{
-    background-image: url(../../assets/media/mujer2.png);
+    background-image: url(../../assets/media/avatar3.svg);
     background-repeat: no-repeat;
 }
