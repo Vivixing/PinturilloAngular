@@ -64,6 +64,11 @@ export class IndexComponent implements OnInit {
     Swal.close();
   }
 
+  joinRoomForId(id:string){
+    this.joinRoomForm.controls.roomcode.setValue(id);
+    this.joinRoom();
+  }
+  
   async joinRoom(){
     if(this.joinRoomForm.invalid){
       return;

@@ -14,6 +14,8 @@
                             <img class="bg-transparent mr-4" [src]="'./assets/' + avatarSalaSeleccionado.src" alt="Icono Sala" width="30px">
                             <h1 class="bg-transparent font-semibold text-sm">{{sala.nombre}}</h1>
                         </div>
+                        <button class="btn-join py-1 px-5 text-white rounded-2xl font-medium text-sm transition ease-out hover:scale-110" (click)="joinRoomForId(sala.idSalaDeJuego)" [disabled]="joinRoomForm.invalid">Join</button>
+                    </div>
                     </div>
                     <button routerLink="/SalasDisponibles" class="text-see-all w-full py-5 rounded-2xl bg-white font-medium">See All</button>
             </div>
