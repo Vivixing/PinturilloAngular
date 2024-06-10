@@ -8,3 +8,6 @@
 .text-see-all{
     color:#660273;
 }
+button:disabled{
+    background-color: gray;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-index',
@@ -7,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
   modalOpen = false;
+  joinRoomForm : FormGroup = new FormGroup({
+    name: new FormControl ('',Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20),Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/)])),
+    roomcode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(1), Validators.pattern(/^([0-9])*$/)]))
+  });
   avatarSelected = {name:'avatarDefault', src:'media/usuario.png'}
   avatarList = [
     {name:'avatar1', src:'media/avatar1.svg'},
@@ -31,5 +36,12 @@ export class IndexComponent implements OnInit {
   selectAvatar(avatar:any){
     this.avatarSelected = avatar
     this.modalOpen = false;
+  }
+
+  joinRoom(){
+    if(this.joinRoomForm.invalid){
+      return;
+    }
+    console.log(this.joinRoomForm.value);
   }
 }
