@@ -9,7 +9,7 @@
                 <h2 class="justify-center items-center text-center text-white text-[18px] font-bold">Results</h2>
                 <div *ngFor="let usuario of ranking; index as i" class="rank flex flex-wrap flex-col justify-center items-center w-[250px] h-[60px] my-3 rounded-[13px]">
                     <div>
-                        <img src="../../assets/media/usuario.png"> <h1 class="font-bold ">{{usuario.nombre}}: {{usuario.puntuacion}}</h1>
+                        <img src="../../assets/media/usuario.png"> <h1 class="font-bold ">{{usuario.username}}: {{usuario.puntos}}</h1>
                     </div>
                     <div class="number w-[50px] h-[30px] rounded-[14px]">
                         <h1 class="justify-center items-center text-center text-white text-[13px] mt-[4px]">{{i+1}}</h1>

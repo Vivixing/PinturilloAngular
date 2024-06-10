@@ -1,4 +1,4 @@
 export interface Ranking{
-    nombre: string;
-    puntuacion: number;
+    username: string;
+    puntos: number;
 }

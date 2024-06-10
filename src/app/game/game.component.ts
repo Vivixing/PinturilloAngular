@@ -111,7 +111,8 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
               confirmButtonText: 'Ok'
             });
             console.log(message.data);
-            this.router.navigate(['/Results']);
+            rankingService.updateRanking(this.players);
+            this.router.navigate(['/Result']);
           }
 
           else if (message.type === 'RESULTS') {
@@ -235,18 +236,6 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
     window.addEventListener("resize", () => this.adjustCanvasSize(canvas));
 
     this.adjustCanvasSize(canvas);
-  }
-
-  countdown() {
-    this.timeLeft--;
-    if (this.timeLeft > 0) {
-      setTimeout(() => this.countdown(), 1000);
-    }
-  }
-  
-  
-  startCountdown() {
-    setTimeout(() => this.countdown(), 1000);
   }
 
   clearCanvas(): void {
