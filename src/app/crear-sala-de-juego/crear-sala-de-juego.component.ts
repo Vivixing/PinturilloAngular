@@ -17,7 +17,7 @@ import { SalaDeJuego } from '../interfaces/SalaDeJuego.interfaces';
 export class CrearSalaDeJuegoComponent implements  OnInit {
   modalOpen = false;
   createRoomForm : FormGroup = new FormGroup({
-    nombreSala: new FormControl ('',Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20),Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/)])),
+    nombreSala: new FormControl ('',Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])),
   })
   categorias : Categoria[] = [];
   idCategoria: string = '';
@@ -54,15 +54,21 @@ export class CrearSalaDeJuegoComponent implements  OnInit {
     }
     this.showLoader();
     try {
+      this.hideLoader();
       const salaDeJuego : SalaDeJuego ={
-        nombre: this.createRoomForm.value['nombre'],
+        nombre: this.createRoomForm.value.nombreSala,
         idCategoria: this.idCategoria,
         estado: 'Sin iniciar',
         categoria: this.nombreCategoria
       };
-
-      console.log(salaDeJuego);
-      this.salaDeJuegoService.guardarSalaDeJuego(salaDeJuego)
+    this.salaDeJuegoService.guardarSalaDeJuego(salaDeJuego).subscribe(
+      (salaDeJuego: SalaDeJuego)=>{
+        Swal.fire('Sala de juego creada', 'La sala de juego ha sido creada con éxito', 'success');
+      },
+      error =>{
+        Swal.fire('Error', 'Error al crear la sala de juego', error.message);
+      }
+    )
     } catch (error:any){
         console.log(error);
         this.hideLoader();
