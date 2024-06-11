@@ -83,10 +83,22 @@ export class IndexComponent implements OnInit {
     }
     this.showLoader();
     try {
-      await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.username);
-      this.hideLoader();
-      this.stateService.updateState({roomcode:this.joinRoomForm.value.roomcode,username:this.joinRoomForm.value.username})
-      this.route.navigate(['/Game']);
+      let roomcode = this.joinRoomForm.get('roomcode')?.value;
+
+      if(this.salasDeJuego.find(sala => sala.idSalaDeJuego !== roomcode)){
+        Swal.fire({
+          icon:'error',
+          title:'Oops...',
+          text:'El id digitado de la sala de juego no existe'
+        });
+        return;
+      }
+      else{
+        await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.username);
+        this.hideLoader();
+        this.stateService.updateState({roomcode:this.joinRoomForm.value.roomcode,username:this.joinRoomForm.value.username})
+        this.route.navigate(['/Game']);
+      }
     } catch (error:any) {
       console.log(error);
       this.hideLoader();
