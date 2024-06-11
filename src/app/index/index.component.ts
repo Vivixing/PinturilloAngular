@@ -93,12 +93,10 @@ export class IndexComponent implements OnInit {
         });
         return;
       }
-      else{
-        await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.username);
-        this.hideLoader();
-        this.stateService.updateState({roomcode:this.joinRoomForm.value.roomcode,username:this.joinRoomForm.value.username})
-        this.route.navigate(['/Game']);
-      }
+      await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.username);
+      this.hideLoader();
+      this.stateService.updateState({roomcode:this.joinRoomForm.value.roomcode,username:this.joinRoomForm.value.username})
+      this.route.navigate(['/Game']);
     } catch (error:any) {
       console.log(error);
       this.hideLoader();
