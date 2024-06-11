@@ -85,11 +85,11 @@ export class IndexComponent implements OnInit {
     try {
       let roomcode = this.joinRoomForm.get('roomcode')?.value;
 
-      if(this.salasDeJuego.find(sala => sala.idSalaDeJuego !== roomcode)){
+      if(this.salaDeJuegoServicio.encontrarIdSalaDeJuego(roomcode) !== roomcode){
         Swal.fire({
           icon:'error',
           title:'Oops...',
-          text:'El id digitado de la sala de juego no existe'
+          text:'El id digitado de la sala de juego no coincide o no existe'
         });
         return;
       }
