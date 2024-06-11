@@ -66,7 +66,7 @@ export class CrearSalaDeJuegoComponent implements  OnInit {
       (salaDeJuego: SalaDeJuego)=>{
         Swal.fire('Sala de juego creada', 'La sala de juego ha sido creada con éxito', 'success');
         //Con el idSalaDeJuego! se asegura de que ese id no será undefined, es decir, que en este caso tendrá un valor.
-        this.unirseSalaJuego.connect(salaDeJuego.idSalaDeJuego!,this.createRoomForm.value.nombreUsuario);
+        this.unirseSalaJuego.connect((salaDeJuego.idSalaDeJuego!).toString(),this.createRoomForm.value.nombreUsuario);
         this.stateService.updateState({roomcode:salaDeJuego.idSalaDeJuego,username:this.createRoomForm.value.nombreUsuario});
         this.route.navigate(['/Game']);
       },
