@@ -17,7 +17,8 @@ import { SalaDeJuego } from '../interfaces/SalaDeJuego.interfaces';
 export class CrearSalaDeJuegoComponent implements  OnInit {
   modalOpen = false;
   createRoomForm : FormGroup = new FormGroup({
-    nombreSala: new FormControl ('',Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])),
+    nombreUsuario: new FormControl ('',Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)])),
+    nombreSala: new FormControl ('',Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20)]))
   })
   categorias : Categoria[] = [];
   idCategoria: string = '';
@@ -64,6 +65,10 @@ export class CrearSalaDeJuegoComponent implements  OnInit {
     this.salaDeJuegoService.guardarSalaDeJuego(salaDeJuego).subscribe(
       (salaDeJuego: SalaDeJuego)=>{
         Swal.fire('Sala de juego creada', 'La sala de juego ha sido creada con éxito', 'success');
+        //Con el idSalaDeJuego! se asegura de que ese id no será undefined, es decir, que en este caso tendrá un valor.
+        this.unirseSalaJuego.connect(salaDeJuego.idSalaDeJuego!,this.createRoomForm.value.nombreUsuario);
+        this.stateService.updateState({roomcode:salaDeJuego.idSalaDeJuego,username:this.createRoomForm.value.nombreUsuario});
+        this.route.navigate(['/Game']);
       },
       error =>{
         Swal.fire('Error', 'Error al crear la sala de juego', error.message);

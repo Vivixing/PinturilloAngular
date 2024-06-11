@@ -31,10 +31,21 @@
                     <div class="flex justify-center items-center bg-transparent relative mb-7">
                         <input formControlName="nombreSala" type="text" name="nombreSala" id="name"
                         class="ring ring-[#F2B3E1] ring-inset bg-white py-2 pl-10 rounded-xl w-full"
-                        placeholder="Name">
+                        placeholder="Room Name">
                         <span class="text-red-400" *ngIf="createRoomForm.get('nombreSala')?.errors && createRoomForm.get('nombreSala')?.touched && createRoomForm.get('nombreSala')?.hasError('required')">Campo Requerido</span>
                         <span class="text-red-400" *ngIf="createRoomForm.get('nombreSala')?.errors && createRoomForm.get('nombreSala')?.touched && createRoomForm.get('nombreSala')?.hasError('minLength')">El nombre debe tener mínimo 3 caracteres</span>
                         <span class="text-red-400" *ngIf="createRoomForm.get('nombreSala')?.errors && createRoomForm.get('nombreSala')?.touched && createRoomForm.get('nombreSala')?.hasError('maxLength')">El nombre debe tener máximo 20 caracteres</span>
+                        <span class="material-symbols-outlined bg-transparent absolute inset-y-0 pl-3 left-0 flex items-center pointer-events-none">
+                            meeting_room
+                        </span>
+                    </div>
+                    <div class="flex justify-center items-center bg-transparent relative mb-7">
+                        <input formControlName="nombreSala" type="text" name="nombreSala" id="name"
+                        class="ring ring-[#F2B3E1] ring-inset bg-white py-2 pl-10 rounded-xl w-full"
+                        placeholder="Username">
+                        <span class="text-red-400" *ngIf="createRoomForm.get('nombreUsuario')?.errors && createRoomForm.get('nombreUsuario')?.touched && createRoomForm.get('nombreUsuario')?.hasError('required')">Campo Requerido</span>
+                        <span class="text-red-400" *ngIf="createRoomForm.get('nombreUsuario')?.errors && createRoomForm.get('nombreUsuario')?.touched && createRoomForm.get('nombreUsuario')?.hasError('minLength')">El nombre debe tener mínimo 3 caracteres</span>
+                        <span class="text-red-400" *ngIf="createRoomForm.get('nombreUsuario')?.errors && createRoomForm.get('nombreUsuario')?.touched && createRoomForm.get('nombreUsuario')?.hasError('maxLength')">El nombre debe tener máximo 20 caracteres</span>
                         <span class="material-symbols-outlined bg-transparent absolute inset-y-0 pl-3 left-0 flex items-center pointer-events-none">
                             person
                         </span>

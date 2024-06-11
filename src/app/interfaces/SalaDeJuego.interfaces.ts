@@ -1,7 +1,7 @@
 import { Categoria } from "./Categoria.interfaces";
 
 export interface SalaDeJuego{
-    idSalaDeJuego ?: number;
+    idSalaDeJuego ?: string;
     nombre : string;
     idCategoria : string;
     estado : string;
@@ -9,7 +9,7 @@ export interface SalaDeJuego{
 }
 
 export interface SalaDeJuegoModelo{
-    idSalaDeJuego ?: number;
+    idSalaDeJuego ?: string;
     nombre : string;
     idCategoria : Categoria;
     estado : string;
