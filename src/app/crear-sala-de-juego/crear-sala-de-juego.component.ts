@@ -23,6 +23,17 @@ export class CrearSalaDeJuegoComponent implements  OnInit {
   categorias : Categoria[] = [];
   idCategoria: string = '';
   nombreCategoria : string = '';
+  avatarSalaSeleccionado = {name:'avatarDefault', src:'media/iconSala.png'}
+  avatarSelected = {name:'avatarDefault', src:'media/usuario.png'}
+  avatarList = [
+    {name:'avatar1', src:'media/avatar1.svg'},
+    {name:'avatar2', src:'media/avatar2.svg'},
+    {name:'avatar3', src:'media/avatar3.svg'},
+    {name:'avatar4', src:'media/avatar4.svg'},
+    {name:'avatar5', src:'media/avatar5.svg'},
+    {name:'avatar6', src:'media/avatar6.svg'}
+  ]
+
   constructor(private unirseSalaJuego:SocketService, 
     private salaDeJuegoService: SalaDeJuegoService,
     private route:Router, 
@@ -44,7 +55,18 @@ export class CrearSalaDeJuegoComponent implements  OnInit {
   hideLoader(){
     Swal.close();
   }
+  changeAvatar(){
+    this.modalOpen = true;
+  }
 
+  closeAvatarSelection(){
+    this.modalOpen = false;
+  }
+
+  selectAvatar(avatar:any){
+    this.avatarSelected = avatar;
+    this.modalOpen = false;
+  }
   categoriaSeleccionada(id: string, nombre:string){
     this.idCategoria = id
     this.nombreCategoria = nombre
@@ -66,8 +88,8 @@ export class CrearSalaDeJuegoComponent implements  OnInit {
       (salaDeJuego: SalaDeJuego)=>{
         Swal.fire('Sala de juego creada', 'La sala de juego ha sido creada con éxito', 'success');
         //Con el idSalaDeJuego! se asegura de que ese id no será undefined, es decir, que en este caso tendrá un valor.
-        this.unirseSalaJuego.connect((salaDeJuego.idSalaDeJuego!).toString(),this.createRoomForm.value.nombreUsuario);
-        this.stateService.updateState({roomcode:salaDeJuego.idSalaDeJuego,username:this.createRoomForm.value.nombreUsuario});
+        this.unirseSalaJuego.connect((salaDeJuego.idSalaDeJuego!).toString(),this.createRoomForm.value.nombreUsuario,this.avatarSelected.src);
+        this.stateService.updateState({roomcode:salaDeJuego.idSalaDeJuego,username:this.createRoomForm.value.nombreUsuario, avatar:this.avatarSelected.src});
         this.route.navigate(['/Game']);
       },
       error =>{

@@ -26,6 +26,18 @@
             <hr class="mt-8 w-[0.05vw] h-[56vh] border-0 border-[#ffffff] bg-[#ffffff] mx-4">
             <div class="bg-transparent w-[40%] flex flex-col justify-between items-center">
                 <div class="flex items-center">
+                    <img class="mt-7 bg-transparent" [src]="'./assets/' + avatarSelected.src" alt="Avatar Default" width="64px">
+                    <button class=" shadow-md border-2 rounded-full -m-1 mt-9" (click)="changeAvatar()">
+                        <img class="size-5" src="./assets/media/editarAvatar.png" alt="Editar Avatar">
+                    </button>
+                </div>
+                <div [ngStyle]="{'display': modalOpen ? 'block' : 'none'}" class="hidden fixed inset-1 bg-black bg-opacity-50 justify-center items-center">
+                    <div class="justify-center items-center">
+                        <button class="close">&times;</button>
+                        <div class="grid grid-cols-3 gap-8 place-items-center">
+                            <img *ngFor="let avatar of avatarList" [src]="'./assets/' + avatar.src" alt="avatar.name" class="size-10 cursor-pointer" (click)="selectAvatar(avatar)">
+                        </div>
+                    </div>
                 </div>
                 <form [formGroup]="createRoomForm">
                     <div class="flex justify-center items-center bg-transparent relative mb-7">

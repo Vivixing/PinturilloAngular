@@ -20,6 +20,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   roomcode:string='';
   username:string='';
+  avatar:string='';
   subscription : Subscription = new Subscription();
 
   timeLeft: number = 90;
@@ -28,8 +29,8 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   drawing: boolean = false;
   coords = { x: 0, y: 0 };
   word: string = '';
-  players: {username: string, puntos: number}[] = [];
-  messages: {user:string, message:string}[] = [];
+  players: {username: string, puntos: number, avatar:string}[] = [];
+  messages: {avatar:string, user:string, message:string}[] = [];
   gameStarted: boolean = true;
   rondas = 1;
   rondaActual = 0;
@@ -55,7 +56,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
           }
           else if (message.type === 'MESSAGE') {
             var chat = message.data.split(':');
-            this.messages.push({user: chat[0], message: chat[1]});
+            this.messages.push({avatar:chat[0],user: chat[1], message: chat[2]});
           }
           else if (message.type === 'WORD') {
             this.word = message.data;
@@ -124,13 +125,13 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
           }
 
           else if (message.type === 'JOIN_ROOM') {
+            var newPlayer = message.data.split(',');
             Swal.fire({
               title: 'Jugador Conectado',
-              text: message.data,
+              text: newPlayer[0],
               icon: 'success',
               confirmButtonText: 'Ok'
             });
-            console.log('Jugador Conectado:', message.data);
           }
 
           else if (message.type === 'LEAVE_ROOM') {
@@ -146,6 +147,9 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
 
           else if (message.type === 'PLAYERS') {
             this.players = message.data;
+            for (let player of this.players) {
+              player.avatar = decodeURIComponent(player.avatar);
+            }
             this.players.sort((a, b) => b.puntos - a.puntos);
             console.log('Jugadores:', message.data);
           }
@@ -183,11 +187,12 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
       this.subscription = this.stateService.state$.subscribe((state)=>{
         this.username = state.username;
         this.roomcode = state.roomcode;
+        this.avatar = state.avatar;
       })
       //Se debe traer como se maneja en el app.routing.module.ts del /Game
       //this.roomcode = this.route.snapshot.paramMap.get('roomcode') ?? '';
       //this.username = this.route.snapshot.paramMap.get('name') ?? '';
-      this.players.push({username: this.username, puntos: 0});
+      this.players.push({username: this.username, puntos: 0, avatar: this.avatar});
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d', { willReadFrequently: true });
     }
@@ -217,7 +222,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
       data: message
     };
     this.socket.SendMessage(JSON.stringify(messageToSend));
-    this.messages.push({user: 'me', message: message});
+    this.messages.push({avatar: this.avatar, user: 'me', message: message});
   }
   
   setupCanvas(): void {

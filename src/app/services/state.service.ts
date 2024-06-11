@@ -8,7 +8,8 @@ export class StateService {
 
   state={
     username:'',
-    roomcode:''
+    roomcode:'',
+    avatar:'',
   }
   stateBehaviour:BehaviorSubject<any> = new BehaviorSubject(this.state);
   state$ = this.stateBehaviour.asObservable();

@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 export class SalasDisponiblesComponent implements OnInit{
   salasDeJuego : SalaDeJuego[] = [];
   username:string='';
+  avatar = '';
   subscription : Subscription = new Subscription();
   avatarSalaSeleccionado = {name:'avatarDefault', src:'media/iconSala.png'}
   constructor(private route:Router,private unirseSalaJuego:SocketService, private salaDeJuegoServicio:SalaDeJuegoService, private stateService:StateService) { }
@@ -23,6 +24,7 @@ export class SalasDisponiblesComponent implements OnInit{
     this.obtenerSalasDeJuego();
     this.subscription = this.stateService.state$.subscribe((state)=>{
     this.username = state.username;
+    this.avatar = state.avatar;
     });
   }
 
@@ -41,7 +43,7 @@ export class SalasDisponiblesComponent implements OnInit{
   }
 
   joinRoom(roomcode:number){
-    this.unirseSalaJuego.connect(roomcode.toString(), this.username);
+    this.unirseSalaJuego.connect(roomcode.toString(), this.username, this.avatar);
     this.route.navigate(['/Game']);
   }
 }

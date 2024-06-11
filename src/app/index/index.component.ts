@@ -49,7 +49,7 @@ export class IndexComponent implements OnInit {
   }
 
   selectAvatar(avatar:any){
-    this.avatarSelected = avatar
+    this.avatarSelected = avatar;
     this.modalOpen = false;
   }
 
@@ -95,9 +95,9 @@ export class IndexComponent implements OnInit {
       });
       return;
     }
-        await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.username);
+        await this.unirseSalaJuego.connect(this.joinRoomForm.value.roomcode,this.joinRoomForm.value.username, this.avatarSelected.src);
         this.hideLoader();
-        this.stateService.updateState({roomcode:this.joinRoomForm.value.roomcode,username:this.joinRoomForm.value.username})
+        this.stateService.updateState({roomcode:this.joinRoomForm.value.roomcode,username:this.joinRoomForm.value.username, avatar:this.avatarSelected.src})
         this.route.navigate(['/Game']);
     } catch (error:any) {
       console.log(error);
