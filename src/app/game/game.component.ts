@@ -34,6 +34,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   gameStarted: boolean = true;
   rondas = 1;
   rondaActual = 0;
+  turnoActual = 0;
 
   constructor(private socket: SocketService, @Inject(PLATFORM_ID) private platformId: Object, private route:ActivatedRoute, private stateService:StateService, private rankingService: RankingService, private router: Router) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -43,8 +44,27 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
         message = JSON.parse(message);
         if (message && message.type != null) {
           if (message.type === 'TURN') {
+            this.turnoActual = message.data;
             console.log('Turno Jugador:', message.data);
           }
+          else if (message.type === 'CLEAR') {
+            this.clearCanvas();
+          }
+          else if (message.type === 'DRAW') {
+            console.log('Dibujando:', message.data);
+            const canvas = this.canvasRef.nativeElement;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              const image = new Image();
+              image.onload = () => {
+                ctx.drawImage(image, 0, 0);
+              };
+              image.src = message.data;
+            } else {
+              console.error('Unable to get 2D context');
+            }
+          }
+          
           else if (message.type === 'ANNOUNCEMENT') {
             Swal.fire({
               title: 'Aviso',
@@ -224,7 +244,21 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.socket.SendMessage(JSON.stringify(messageToSend));
     this.messages.push({avatar: this.avatar, user: 'me', message: message});
   }
-  
+
+  sendDrawing(): void {
+    const canvas = this.canvasRef.nativeElement;
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      const image = canvas.toDataURL(); // This converts the canvas content to a data URL representing the image
+      const message = {
+        type: 'DRAW',
+        data: image
+      };
+      this.socket.SendMessage(JSON.stringify(message)); // Make sure the method name is correct ("sendMessage" instead of "SendMessage")
+    } else {
+      console.error('Unable to get 2D context');
+    }
+  }
   setupCanvas(): void {
     const canvas = this.canvasRef.nativeElement;
     const ctx = canvas.getContext('2d');
@@ -251,12 +285,21 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       console.error('Unable to get 2D context');
     }
+    if(this.turnoActual == 1){
+      let message = {
+        type: 'CLEAR',
+        data: ''
+      };
+      this.socket.SendMessage(JSON.stringify(message));
+    }
   }
 
   startDrawing(e: MouseEvent): void {
+    if(this.turnoActual == 1){
     const canvas = this.canvasRef.nativeElement;
     this.drawing = true;
     this.coords = this.getPosition(e, canvas);
+    }
 }
 
 draw(e: MouseEvent, ctx: CanvasRenderingContext2D): void {
@@ -289,6 +332,7 @@ getPosition(e: MouseEvent, canvas: HTMLCanvasElement): { x: number, y: number } 
   stopDrawing(ctx: CanvasRenderingContext2D): void {
     this.drawing = false;
     ctx.beginPath();
+    this.sendDrawing();
   }
 
 
