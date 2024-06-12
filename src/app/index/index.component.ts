@@ -38,6 +38,7 @@ export class IndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerSalasDeJuego();
+    this.stateService.updateState({avatar:this.avatarSelected.src})
   }
 
   changeAvatar(){
@@ -50,6 +51,7 @@ export class IndexComponent implements OnInit {
 
   selectAvatar(avatar:any){
     this.avatarSelected = avatar;
+    this.stateService.updateState({avatar:this.avatarSelected.src})
     this.modalOpen = false;
   }
 
