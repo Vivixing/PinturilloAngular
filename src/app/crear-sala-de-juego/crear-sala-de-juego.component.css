@@ -8,6 +8,6 @@
 .text-see-all{
     color:#660273;
 }
-button:disabled{
+button:disabled, button:active, button::after{
     background-color: gray;
 }
